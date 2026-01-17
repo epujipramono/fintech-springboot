@@ -17,11 +17,6 @@ public class AccountBalanceController {
         this.service = service;
     }
 
-    @GetMapping("/balance/init")
-    public AccountBalance initBalance() {
-        return service.initBalance();
-    }
-
     @PostMapping("/inquiry")
     public AccountBalanceResponse inquiryBalance(
             @Valid @RequestBody AccountBalanceRequest request
