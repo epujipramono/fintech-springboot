@@ -1,4 +1,5 @@
 package com.example.fintech.entity;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,6 +12,9 @@ public class AccountBalance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "account_number", nullable = false, unique = true)
+    private String accountNumber;
+
     @Column(nullable = false)
     private BigDecimal balance;
 
@@ -20,31 +24,41 @@ public class AccountBalance {
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
-    protected AccountBalance() {}
-
-    public AccountBalance(
-            BigDecimal balance,
-            String currency,
-            LocalDateTime lastUpdated
-    ) {
-        this.balance = balance;
-        this.currency = currency;
-        this.lastUpdated = lastUpdated;
-    }
+    public AccountBalance() {}
 
     public Long getId() {
         return id;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public BigDecimal getBalance() {
         return balance;
     }
 
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
     public String getCurrency() {
         return currency;
     }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
