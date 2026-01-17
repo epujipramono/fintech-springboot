@@ -2,10 +2,10 @@ package com.example.fintech.service;
 
 import com.example.fintech.dto.response.AccountBalanceResponse;
 import com.example.fintech.entity.AccountBalance;
-import com.example.fintech.mapper.AccountBalanceMapper;import com.example.fintech.repository.AccountBalanceRepository;
+import com.example.fintech.exception.AccountNotFoundException;
+import com.example.fintech.mapper.AccountBalanceMapper;
+import com.example.fintech.repository.AccountBalanceRepository;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Service
 public class AccountBalanceService {
@@ -18,7 +18,7 @@ public class AccountBalanceService {
 
     public AccountBalanceResponse getBalanceByAccountNumber(String accountNumber) {
         AccountBalance balance = repository.findByAccountNumber(accountNumber)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(AccountNotFoundException::new);
 
         return AccountBalanceMapper.toResponse(balance);
     }
