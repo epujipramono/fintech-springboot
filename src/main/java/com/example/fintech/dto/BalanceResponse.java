@@ -1,5 +1,4 @@
 package com.example.fintech.dto;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
