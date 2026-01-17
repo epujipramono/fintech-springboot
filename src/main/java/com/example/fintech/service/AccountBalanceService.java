@@ -1,8 +1,8 @@
 package com.example.fintech.service;
 
-import com.example.fintech.dto.AccountBalanceResponse;
+import com.example.fintech.dto.response.AccountBalanceResponse;
 import com.example.fintech.entity.AccountBalance;
-import com.example.fintech.repository.AccountBalanceRepository;
+import com.example.fintech.mapper.AccountBalanceMapper;import com.example.fintech.repository.AccountBalanceRepository;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class AccountBalanceService {
         this.repository = repository;
     }
 
-    public AccountBalance getBalance() {
+    public AccountBalance initBalance() {
         AccountBalance balance = new AccountBalance();
         balance.setAccountNumber("123456789");
         balance.setBalance(new BigDecimal("1500000"));
@@ -30,11 +30,6 @@ public class AccountBalanceService {
         AccountBalance balance = repository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        return new AccountBalanceResponse(
-                balance.getAccountNumber(),
-                balance.getBalance(),
-                balance.getCurrency(),
-                balance.getLastUpdated()
-        );
+        return AccountBalanceMapper.toResponse(balance);
     }
 }

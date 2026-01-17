@@ -1,4 +1,4 @@
-package com.example.fintech.dto;
+package com.example.fintech.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

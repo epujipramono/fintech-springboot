@@ -1,4 +1,4 @@
-package com.example.fintech.dto;
+package com.example.fintech.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

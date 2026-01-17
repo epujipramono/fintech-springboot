@@ -1,7 +1,7 @@
 package com.example.fintech.controller;
 
-import com.example.fintech.dto.AccountBalanceRequest;
-import com.example.fintech.dto.AccountBalanceResponse;
+import com.example.fintech.dto.request.AccountBalanceRequest;
+import com.example.fintech.dto.response.AccountBalanceResponse;
 import com.example.fintech.entity.AccountBalance;
 import com.example.fintech.service.AccountBalanceService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class AccountBalanceController {
 
     @GetMapping("/balance/init")
     public AccountBalance initBalance() {
-        return service.getBalance();
+        return service.initBalance();
     }
 
     @PostMapping("/inquiry")
