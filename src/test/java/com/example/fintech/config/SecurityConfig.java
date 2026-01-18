@@ -15,9 +15,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/balance/**",
-                                "/transactions/**",
-                                "/h2/**"
+                                "/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

@@ -2,7 +2,6 @@ package com.example.fintech.controller;
 
 import com.example.fintech.dto.request.AccountBalanceRequest;
 import com.example.fintech.dto.response.AccountBalanceResponse;
-import com.example.fintech.entity.AccountBalance;
 import com.example.fintech.service.AccountBalanceService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
