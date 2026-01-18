@@ -1,0 +1,17 @@
+package com.example.fintech.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class AccountRegistrationRequest {
+
+    @NotBlank(message = "Account number is required")
+    private String accountNumber;
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+}
