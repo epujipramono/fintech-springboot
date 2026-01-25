@@ -1,5 +1,6 @@
 package com.example.fintech.dto.request;
 
+import com.example.fintech.entity.AccountTransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -15,7 +16,7 @@ public class CreateTransactionRequest {
     private BigDecimal amount;
 
     @NotNull
-    private String type; // CREDIT / DEBIT
+    private AccountTransactionType type;
 
     public String getAccountNumber() {
         return accountNumber;
@@ -25,7 +26,7 @@ public class CreateTransactionRequest {
         return amount;
     }
 
-    public String getType() {
+    public AccountTransactionType getType() {
         return type;
     }
 }

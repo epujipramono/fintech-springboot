@@ -30,9 +30,9 @@ public class AccountTransactionService {
 
         BigDecimal newBalance;
 
-        if ("CREDIT".equalsIgnoreCase(request.getType())) {
+        if ("CREDIT".equalsIgnoreCase(request.getType().toString())) {
             newBalance = balance.getBalance().add(request.getAmount());
-        } else if ("DEBIT".equalsIgnoreCase(request.getType())) {
+        } else if ("DEBIT".equalsIgnoreCase(request.getType().toString())) {
             newBalance = balance.getBalance().subtract(request.getAmount());
         } else {
             throw new IllegalArgumentException("Invalid transaction type");

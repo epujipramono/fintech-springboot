@@ -17,13 +17,14 @@ public class AccountTransaction {
 
     private BigDecimal amount;
 
-    private String type; // CREDIT / DEBIT
+    @Enumerated(EnumType.STRING)
+    private AccountTransactionType type;
 
     private LocalDateTime createdAt;
 
     public AccountTransaction() {}
 
-    public AccountTransaction(String accountNumber, BigDecimal amount, String type) {
+    public AccountTransaction(String accountNumber, BigDecimal amount, AccountTransactionType type) {
         this.accountNumber = accountNumber;
         this.amount = amount;
         this.type = type;
@@ -42,7 +43,7 @@ public class AccountTransaction {
         return amount;
     }
 
-    public String getType() {
+    public AccountTransactionType getType() {
         return type;
     }
 
