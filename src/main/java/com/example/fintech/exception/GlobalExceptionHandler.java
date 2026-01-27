@@ -29,4 +29,13 @@ public class GlobalExceptionHandler {
                         .getDefaultMessage()
         );
     }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleInsufficientBalance(InsufficientBalanceException ex) {
+        return new ErrorResponse(
+                "INSUFFICIENT_BALANCE",
+                ex.getMessage()
+        );
+    }
 }

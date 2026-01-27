@@ -3,11 +3,15 @@ package com.example.fintech.service;
 import com.example.fintech.dto.request.CreateTransactionRequest;
 import com.example.fintech.entity.AccountBalance;
 import com.example.fintech.entity.AccountTransaction;
+import com.example.fintech.entity.AccountTransactionType;
 import com.example.fintech.exception.AccountNotFoundException;
+import com.example.fintech.exception.InsufficientBalanceException;
 import com.example.fintech.repository.AccountBalanceRepository;
 import com.example.fintech.repository.AccountTransactionRepository;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class AccountTransactionService {
@@ -23,6 +27,7 @@ public class AccountTransactionService {
         this.balanceRepository = balanceRepository;
     }
 
+    @Transactional
     public void createTransaction(CreateTransactionRequest request) {
 
         AccountBalance balance = balanceRepository.findByAccountNumber(request.getAccountNumber())
@@ -30,9 +35,12 @@ public class AccountTransactionService {
 
         BigDecimal newBalance;
 
-        if ("CREDIT".equalsIgnoreCase(request.getType().toString())) {
+        if (request.getType() == AccountTransactionType.CREDIT) {
             newBalance = balance.getBalance().add(request.getAmount());
-        } else if ("DEBIT".equalsIgnoreCase(request.getType().toString())) {
+        } else if (request.getType() == AccountTransactionType.DEBIT) {
+            if (balance.getBalance().compareTo(request.getAmount()) < 0) {
+                throw new InsufficientBalanceException();
+            }
             newBalance = balance.getBalance().subtract(request.getAmount());
         } else {
             throw new IllegalArgumentException("Invalid transaction type");
