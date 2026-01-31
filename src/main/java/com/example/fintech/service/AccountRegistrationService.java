@@ -1,6 +1,7 @@
 package com.example.fintech.service;
 
 import com.example.fintech.dto.request.AccountRegistrationRequest;
+import com.example.fintech.dto.response.AccountRegistrationResponse;
 import com.example.fintech.entity.AccountBalance;
 import com.example.fintech.entity.AccountTransaction;
 import com.example.fintech.entity.AccountTransactionType;
@@ -24,7 +25,7 @@ public class AccountRegistrationService {
         this.balanceRepository = balanceRepository;
     }
 
-    public void registerAccount(AccountRegistrationRequest request) {
+    public AccountRegistrationResponse registerAccount(AccountRegistrationRequest request) {
 
         AccountBalance balance = new AccountBalance();
         balance.setAccountNumber(request.getAccountNumber());
@@ -36,6 +37,14 @@ public class AccountRegistrationService {
 
         transactionRepository.save(
                 new AccountTransaction(request.getAccountNumber(), new BigDecimal("1500000"), AccountTransactionType.CREDIT)
+        );
+
+        return new AccountRegistrationResponse(
+                "SUCCESS",
+                "Account registered successfully",
+                request.getAccountNumber(),
+                new BigDecimal("1500000"),
+                "IDR"
         );
     }
 }

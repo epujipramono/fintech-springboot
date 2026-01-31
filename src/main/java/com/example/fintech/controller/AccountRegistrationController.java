@@ -1,8 +1,10 @@
 package com.example.fintech.controller;
 
 import com.example.fintech.dto.request.AccountRegistrationRequest;
+import com.example.fintech.dto.response.AccountRegistrationResponse;
 import com.example.fintech.service.AccountRegistrationService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +18,7 @@ public class AccountRegistrationController {
     }
 
     @PostMapping
-    public void registerAccount(@Valid @RequestBody AccountRegistrationRequest request) {
-        service.registerAccount(request);
+    public AccountRegistrationResponse registerAccount(@Valid @RequestBody AccountRegistrationRequest request) {
+        return service.registerAccount(request);
     }
 }
