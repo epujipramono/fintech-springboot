@@ -1,6 +1,7 @@
 package com.example.fintech.service;
 
 import com.example.fintech.dto.request.CreateTransactionRequest;
+import com.example.fintech.dto.response.AccountTransactionResponse;
 import com.example.fintech.entity.AccountBalance;
 import com.example.fintech.entity.AccountTransaction;
 import com.example.fintech.entity.AccountTransactionType;
@@ -19,16 +20,13 @@ public class AccountTransactionService {
     private final AccountTransactionRepository transactionRepository;
     private final AccountBalanceRepository balanceRepository;
 
-    public AccountTransactionService(
-            AccountTransactionRepository transactionRepository,
-            AccountBalanceRepository balanceRepository
-    ) {
+    public AccountTransactionService(AccountTransactionRepository transactionRepository, AccountBalanceRepository balanceRepository) {
         this.transactionRepository = transactionRepository;
         this.balanceRepository = balanceRepository;
     }
 
     @Transactional
-    public void createTransaction(CreateTransactionRequest request) {
+    public AccountTransactionResponse createTransaction(CreateTransactionRequest request) {
 
         AccountBalance balance = balanceRepository.findByAccountNumber(request.getAccountNumber())
                 .orElseThrow(AccountNotFoundException::new);
@@ -53,5 +51,14 @@ public class AccountTransactionService {
         );
 
         balanceRepository.save(balance);
+
+        return new AccountTransactionResponse(
+                "SUCCESS",
+                "Transaction created successfully",
+                request.getAccountNumber(),
+                request.getAmount(),
+                request.getType(),
+                newBalance
+        );
     }
 }
